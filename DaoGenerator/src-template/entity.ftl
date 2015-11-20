@@ -279,6 +279,19 @@ ${property.javaDocSetter}
     }
 
 </#if>
+
+    /** merge */
+    public void merge(${entity.className} model){
+        if(this.${entity.getPkProperty().getPropertyName()} != model.get${entity.getPkProperty().getPropertyName()?cap_first}()){
+            return;
+        }
+    <#list entity.properties as property>
+        if(model.get${property.propertyName?cap_first}() != null && model.get${property.propertyName?cap_first}() != 0){
+            this.${property.propertyName} = model.get${property.propertyName?cap_first}();
+        }
+    </#list>
+    }
+
 <#if entity.hasKeepSections>
     // KEEP METHODS - put your custom methods here
 ${keepMethods!}    // KEEP METHODS END

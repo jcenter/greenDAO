@@ -104,4 +104,18 @@ public class Customer {
         myDao.refresh(this);
     }
 
+
+    /** merge */
+    public void merge(Customer model){
+        if(this.id != model.getId()){
+            return;
+        }
+        if(model.getId() != null && model.getId() != 0){
+            this.id = model.getId();
+        }
+        if(model.getName() != null && model.getName() != 0){
+            this.name = model.getName();
+        }
+    }
+
 }

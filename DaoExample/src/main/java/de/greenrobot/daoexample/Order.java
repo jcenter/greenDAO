@@ -118,4 +118,21 @@ public class Order {
         myDao.refresh(this);
     }
 
+
+    /** merge */
+    public void merge(Order model){
+        if(this.id != model.getId()){
+            return;
+        }
+        if(model.getId() != null && model.getId() != 0){
+            this.id = model.getId();
+        }
+        if(model.getDate() != null && model.getDate() != 0){
+            this.date = model.getDate();
+        }
+        if(model.getCustomerId() != null && model.getCustomerId() != 0){
+            this.customerId = model.getCustomerId();
+        }
+    }
+
 }

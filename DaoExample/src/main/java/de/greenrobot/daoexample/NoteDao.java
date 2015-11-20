@@ -29,6 +29,8 @@ public class NoteDao extends AbstractDao<Note, Long> {
         public final static Property Date = new Property(3, java.util.Date.class, "date", false, "DATE");
     };
 
+    private DaoSession daoSession;
+
 
     public NoteDao(DaoConfig config) {
         super(config);
@@ -36,6 +38,7 @@ public class NoteDao extends AbstractDao<Note, Long> {
     
     public NoteDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
+        this.daoSession = daoSession;
     }
 
     /** Creates the underlying database table. */
@@ -74,6 +77,12 @@ public class NoteDao extends AbstractDao<Note, Long> {
         if (date != null) {
             stmt.bindLong(4, date.getTime());
         }
+    }
+
+    @Override
+    protected void attachEntity(Note entity) {
+        super.attachEntity(entity);
+        entity.__setDaoSession(daoSession);
     }
 
     /** @inheritdoc */
