@@ -4,8 +4,13 @@ apply plugin: 'signing'
 
 group = 'de.greenrobot'
 archivesBaseName = 'greendao-generator'
-version = '2.1.1-SNAPSHOT'
+version = '3.1.1-SNAPSHOT'
 sourceCompatibility = 1.7
+
+ext {
+    sonatypeUsername = "admin"
+    sonatypePassword = "password"
+}
 
 def isSnapshot = version.endsWith('-SNAPSHOT')
 def sonatypeRepositoryUrl
@@ -88,13 +93,15 @@ signing {
         sign configurations.archives
     } else {
         println "Signing information missing/incomplete for ${project.name}"
+        sign configurations.archives
     }
 }
+
 
 uploadArchives {
     repositories {
         mavenDeployer {
-            if(project.hasProperty('preferedRepo') && project.hasProperty('preferedUsername') 
+            if(project.hasProperty('preferedRepo') && project.hasProperty('preferedUsername')
                 && project.hasProperty('preferedPassword')) {
                 configuration = configurations.deployerJars
                 repository(url: preferedRepo) {
@@ -135,12 +142,12 @@ uploadArchives {
                        name 'greenrobot'
                    }
                }
-               
+
                issueManagement {
                    system 'GitHub Issues'
                    url 'https://github.com/greenrobot/greenDAO/issues'
                }
-               
+
                organization {
                    name 'greenrobot'
                    url 'http://greenrobot.de'
