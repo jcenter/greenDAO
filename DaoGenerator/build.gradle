@@ -1,24 +1,25 @@
 apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'signing'
+//apply plugin: 'maven'
+//apply plugin: 'signing'
 
-group = 'de.greenrobot'
-archivesBaseName = 'greendao-generator'
-version = '3.1.1-SNAPSHOT'
-sourceCompatibility = 1.7
-
-ext {
-    sonatypeUsername = "admin"
-    sonatypePassword = "password"
-}
-
-def isSnapshot = version.endsWith('-SNAPSHOT')
-def sonatypeRepositoryUrl
-if(isSnapshot) {
-    sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-} else {
-    sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-}
+//
+//group = 'de.greenrobot'
+//archivesBaseName = 'greendao-generator'
+//version = '3.1.1-SNAPSHOT'
+//sourceCompatibility = 1.7
+//
+//ext {
+//    sonatypeUsername = "admin"
+//    sonatypePassword = "password"
+//}
+//
+//def isSnapshot = version.endsWith('-SNAPSHOT')
+//def sonatypeRepositoryUrl
+//if(isSnapshot) {
+//    sonatypeRepositoryUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+//} else {
+//    sonatypeRepositoryUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+//}
 
 repositories {
     mavenCentral()
@@ -87,72 +88,141 @@ artifacts {
     archives sourcesJar
 }
 
-signing {
-    if(project.hasProperty('signing.keyId') && project.hasProperty('signing.password') &&
-    project.hasProperty('signing.secretKeyRingFile')) {
-        sign configurations.archives
-    } else {
-        println "Signing information missing/incomplete for ${project.name}"
-        sign configurations.archives
-    }
+//signing {
+//    if(project.hasProperty('signing.keyId') && project.hasProperty('signing.password') &&
+//    project.hasProperty('signing.secretKeyRingFile')) {
+//        sign configurations.archives
+//    } else {
+//        println "Signing information missing/incomplete for ${project.name}"
+//        sign configurations.archives
+//    }
+//}
+//
+//
+//
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            if(project.hasProperty('preferedRepo') && project.hasProperty('preferedUsername')
+//                && project.hasProperty('preferedPassword')) {
+//                configuration = configurations.deployerJars
+//                repository(url: preferedRepo) {
+//                    authentication(userName: preferedUsername, password: preferedPassword)
+//                }
+//            } else if(project.hasProperty('sonatypeUsername') && project.hasProperty('sonatypePassword')) {
+//                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+//                repository(url: sonatypeRepositoryUrl) {
+//                    authentication(userName: sonatypeUsername, password: sonatypePassword)
+//                }
+//            } else {
+//                println "Settings sonatypeUsername/sonatypePassword missing/incomplete for ${project.name}"
+//            }
+//
+//            pom.project {
+//               name 'greenDAO Generator'
+//               packaging 'jar'
+//               description 'Code generator for greenDAO, the light and fast ORM for Android'
+//               url 'http://greendao-orm.com'
+//
+//               scm {
+//                   url 'https://github.com/greenrobot/greenDAO'
+//                   connection 'scm:git@github.com:greenrobot/greenDAO.git'
+//                   developerConnection 'scm:git@github.com:greenrobot/greenDAO.git'
+//               }
+//
+//               licenses {
+//                   license {
+//                       name 'GNU General Public License, Version 3'
+//                       url 'http://www.gnu.org/licenses/gpl.txt'
+//                       distribution 'repo'
+//                   }
+//               }
+//
+//               developers {
+//                   developer {
+//                       id 'greenrobot'
+//                       name 'greenrobot'
+//                   }
+//               }
+//
+//               issueManagement {
+//                   system 'GitHub Issues'
+//                   url 'https://github.com/greenrobot/greenDAO/issues'
+//               }
+//
+//               organization {
+//                   name 'greenrobot'
+//                   url 'http://greenrobot.de'
+//               }
+//           }
+//        }
+//    }
+//}
+//
+
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'DaoGenerator'
+
+    publishedGroupId = 'com.lijinchao'
+    libraryName = 'DaoGenerator'
+    artifact = 'DaoGenerator'
+
+    libraryDescription = 'just print hello'
+
+    siteUrl = 'https://github.com/jcenter/greenDAO'
+    gitUrl = 'https://github.com/jcenter/greenDAO.git'
+
+    libraryVersion = '3.1.2'
+
+
+    developerId = 'lijinchao2007'
+    developerName = 'lijinchao2007'
+    developerEmail = 'lijinchao2007@163.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
 }
 
+apply plugin: 'com.jfrog.bintray'
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            if(project.hasProperty('preferedRepo') && project.hasProperty('preferedUsername')
-                && project.hasProperty('preferedPassword')) {
-                configuration = configurations.deployerJars
-                repository(url: preferedRepo) {
-                    authentication(userName: preferedUsername, password: preferedPassword)
-                }
-            } else if(project.hasProperty('sonatypeUsername') && project.hasProperty('sonatypePassword')) {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-                repository(url: sonatypeRepositoryUrl) {
-                    authentication(userName: sonatypeUsername, password: sonatypePassword)
-                }
-            } else {
-                println "Settings sonatypeUsername/sonatypePassword missing/incomplete for ${project.name}"
+version = libraryVersion
+group = publishedGroupId
+archivesBaseName = artifact
+
+artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+}
+
+// Bintray
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = bintrayRepo
+        name = bintrayName
+        desc = libraryDescription
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = allLicenses
+        publish = true
+        publicDownloadNumbers = true
+        version {
+            desc = libraryDescription
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = properties.getProperty("bintray.gpg.password")
+                //Optional. The passphrase for GPG signing'
             }
-
-            pom.project {
-               name 'greenDAO Generator'
-               packaging 'jar'
-               description 'Code generator for greenDAO, the light and fast ORM for Android'
-               url 'http://greendao-orm.com'
-
-               scm {
-                   url 'https://github.com/greenrobot/greenDAO'
-                   connection 'scm:git@github.com:greenrobot/greenDAO.git'
-                   developerConnection 'scm:git@github.com:greenrobot/greenDAO.git'
-               }
-
-               licenses {
-                   license {
-                       name 'GNU General Public License, Version 3'
-                       url 'http://www.gnu.org/licenses/gpl.txt'
-                       distribution 'repo'
-                   }
-               }
-
-               developers {
-                   developer {
-                       id 'greenrobot'
-                       name 'greenrobot'
-                   }
-               }
-
-               issueManagement {
-                   system 'GitHub Issues'
-                   url 'https://github.com/greenrobot/greenDAO/issues'
-               }
-
-               organization {
-                   name 'greenrobot'
-                   url 'http://greenrobot.de'
-               }
-           }
         }
     }
 }
