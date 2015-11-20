@@ -106,18 +106,26 @@ public class Note {
         if(this.id != model.getId()){
             return;
         }
-        if(model.getId() != null && model.getId() != 0){
+
+        if(model.getId() != null){
             this.id = model.getId();
         }
-        if(model.getText() != null && model.getText() != 0){
+
+
+        if(model.getText() != null){
             this.text = model.getText();
         }
-        if(model.getComment() != null && model.getComment() != 0){
+
+
+        if(model.getComment() != null){
             this.comment = model.getComment();
         }
-        if(model.getDate() != null && model.getDate() != 0){
+
+
+        if(model.getDate() != null){
             this.date = model.getDate();
         }
+
     }
 
 }

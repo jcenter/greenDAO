@@ -174,7 +174,7 @@ ext {
     siteUrl = 'https://github.com/jcenter/greenDAO'
     gitUrl = 'https://github.com/jcenter/greenDAO.git'
 
-    libraryVersion = '3.1.4'
+    libraryVersion = '3.1.5'
 
 
     developerId = 'lijinchao2007'
