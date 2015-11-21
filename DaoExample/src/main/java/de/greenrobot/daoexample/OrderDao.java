@@ -240,4 +240,19 @@ public class OrderDao extends AbstractDao<Order, Long> {
         return loadDeepAllAndCloseCursor(cursor);
     }
  
+
+
+    public Order saveToDb(Order model){
+        if(model == null){
+            return;
+        }
+        Order dbModel = this.load(this.getKey(model));
+        if(dbModel != null){
+            dbModel.merge(model);
+        }else{
+            dbModel = model;
+        }
+        this.insertOrReplace(dbModel);
+        return dbModel;
+    }
 }

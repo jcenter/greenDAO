@@ -286,17 +286,9 @@ ${property.javaDocSetter}
             return;
         }
     <#list entity.properties as property>
-
-        <#if property.javaTypeInEntity == "int" || property.javaTypeInEntity == "long" || property.javaTypeInEntity == "short" || property.javaTypeInEntity == "float" || property.javaTypeInEntity == "double" || property.javaTypeInEntity == "Date">
-        if(model.get${property.propertyName?cap_first}() != 0){
-            this.${property.propertyName} = model.get${property.propertyName?cap_first}();
-        }
-        <#else>
         if(model.get${property.propertyName?cap_first}() != null){
             this.${property.propertyName} = model.get${property.propertyName?cap_first}();
         }
-        </#if>
-
     </#list>
     }
 

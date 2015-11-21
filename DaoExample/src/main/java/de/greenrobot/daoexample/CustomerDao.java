@@ -117,4 +117,19 @@ public class CustomerDao extends AbstractDao<Customer, Long> {
         return true;
     }
     
+
+
+    public Customer saveToDb(Customer model){
+        if(model == null){
+            return;
+        }
+        Customer dbModel = this.load(this.getKey(model));
+        if(dbModel != null){
+            dbModel.merge(model);
+        }else{
+            dbModel = model;
+        }
+        this.insertOrReplace(dbModel);
+        return dbModel;
+    }
 }

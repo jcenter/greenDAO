@@ -306,4 +306,19 @@ as property>\"${property.columnName}\"<#if property_has_next>,</#if></#list>);")
 <#if entity.toOneRelations?has_content>
     <#include "dao-deep.ftl">
 </#if>
+
+
+    public ${entity.className} saveToDb(${entity.className} model){
+        if(model == null){
+            return null;
+        }
+        ${entity.className} dbModel = this.load(this.getKey(model));
+        if(dbModel != null){
+            dbModel.merge(model);
+        }else{
+            dbModel = model;
+        }
+        this.insertOrReplace(dbModel);
+        return dbModel;
+    }
 }

@@ -15,6 +15,8 @@
  */
 package de.greenrobot.daogenerator.gentest;
 
+import java.util.Date;
+
 import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;
 import de.greenrobot.daogenerator.Property;
@@ -46,6 +48,16 @@ public class ExampleDaoGenerator {
         note.addStringProperty("text").notNull();
         note.addStringProperty("comment");
         note.addDateProperty("date");
+
+        note.addBooleanProperty("boo");
+        note.addByteProperty("bit");
+        note.addDateProperty("dat");
+        note.addDoubleProperty("dou");
+        note.addFloatProperty("flo");
+        note.addLongProperty("lon");
+        note.addIntProperty("in");
+
+
     }
 
     private static void addCustomerOrder(Schema schema) {

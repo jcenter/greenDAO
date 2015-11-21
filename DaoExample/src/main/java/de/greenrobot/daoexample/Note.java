@@ -14,6 +14,13 @@ public class Note {
     private String text;
     private String comment;
     private java.util.Date date;
+    private Boolean boo;
+    private Byte bit;
+    private java.util.Date dat;
+    private Double dou;
+    private Float flo;
+    private Long lon;
+    private Integer in;
 
     /** Used to resolve relations */
     private transient DaoSession daoSession;
@@ -29,11 +36,18 @@ public class Note {
         this.id = id;
     }
 
-    public Note(Long id, String text, String comment, java.util.Date date) {
+    public Note(Long id, String text, String comment, java.util.Date date, Boolean boo, Byte bit, java.util.Date dat, Double dou, Float flo, Long lon, Integer in) {
         this.id = id;
         this.text = text;
         this.comment = comment;
         this.date = date;
+        this.boo = boo;
+        this.bit = bit;
+        this.dat = dat;
+        this.dou = dou;
+        this.flo = flo;
+        this.lon = lon;
+        this.in = in;
     }
 
     /** called by internal mechanisms, do not call yourself. */
@@ -76,6 +90,62 @@ public class Note {
         this.date = date;
     }
 
+    public Boolean getBoo() {
+        return boo;
+    }
+
+    public void setBoo(Boolean boo) {
+        this.boo = boo;
+    }
+
+    public Byte getBit() {
+        return bit;
+    }
+
+    public void setBit(Byte bit) {
+        this.bit = bit;
+    }
+
+    public java.util.Date getDat() {
+        return dat;
+    }
+
+    public void setDat(java.util.Date dat) {
+        this.dat = dat;
+    }
+
+    public Double getDou() {
+        return dou;
+    }
+
+    public void setDou(Double dou) {
+        this.dou = dou;
+    }
+
+    public Float getFlo() {
+        return flo;
+    }
+
+    public void setFlo(Float flo) {
+        this.flo = flo;
+    }
+
+    public Long getLon() {
+        return lon;
+    }
+
+    public void setLon(Long lon) {
+        this.lon = lon;
+    }
+
+    public Integer getIn() {
+        return in;
+    }
+
+    public void setIn(Integer in) {
+        this.in = in;
+    }
+
     /** Convenient call for {@link AbstractDao#delete(Object)}. Entity must attached to an entity context. */
     public void delete() {
         if (myDao == null) {
@@ -106,26 +176,39 @@ public class Note {
         if(this.id != model.getId()){
             return;
         }
-
         if(model.getId() != null){
             this.id = model.getId();
         }
-
-
         if(model.getText() != null){
             this.text = model.getText();
         }
-
-
         if(model.getComment() != null){
             this.comment = model.getComment();
         }
-
-
         if(model.getDate() != null){
             this.date = model.getDate();
         }
-
+        if(model.getBoo() != null){
+            this.boo = model.getBoo();
+        }
+        if(model.getBit() != null){
+            this.bit = model.getBit();
+        }
+        if(model.getDat() != null){
+            this.dat = model.getDat();
+        }
+        if(model.getDou() != null){
+            this.dou = model.getDou();
+        }
+        if(model.getFlo() != null){
+            this.flo = model.getFlo();
+        }
+        if(model.getLon() != null){
+            this.lon = model.getLon();
+        }
+        if(model.getIn() != null){
+            this.in = model.getIn();
+        }
     }
 
 }

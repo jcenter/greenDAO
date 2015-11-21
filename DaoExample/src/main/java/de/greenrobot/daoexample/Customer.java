@@ -110,16 +110,12 @@ public class Customer {
         if(this.id != model.getId()){
             return;
         }
-
         if(model.getId() != null){
             this.id = model.getId();
         }
-
-
         if(model.getName() != null){
             this.name = model.getName();
         }
-
     }
 
 }

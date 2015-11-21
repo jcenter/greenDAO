@@ -124,21 +124,15 @@ public class Order {
         if(this.id != model.getId()){
             return;
         }
-
         if(model.getId() != null){
             this.id = model.getId();
         }
-
-
         if(model.getDate() != null){
             this.date = model.getDate();
         }
-
-
-        if(model.getCustomerId() != 0){
+        if(model.getCustomerId() != null){
             this.customerId = model.getCustomerId();
         }
-
     }
 
 }
